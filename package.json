@@ -1,0 +1,22 @@
+{
+  "name": "nodepractice",
+  "version": "1.0.0",
+  "description": "node project assignment",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FreedomFei/NodePractice.git"
+  },
+  "author": "freedomfei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FreedomFei/NodePractice/issues"
+  },
+  "homepage": "https://github.com/FreedomFei/NodePractice#readme"
+}
