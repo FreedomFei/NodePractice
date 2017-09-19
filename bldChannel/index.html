@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <script type="text/javascript" src="./jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="./ajax.js"></script>
+    <script type="text/javascript">
+        function exportChannel() {
+//            let childNodes = document.getElementById('tbody_row_data').childNodes;
+//            childNodes.forEach(function (childNode) {
+//                var chileTd = childNode.getElementsByTagName('td');
+//                var channel_number = chileTd[3].innerHTML;
+//                var platform_name = chileTd[4].innerHTML;
+//                console.log(platform_name + ' ' + channel_number + ' ' + channel_number);
+//            })
+
+            let childCount = document.getElementById('tbody_row_data').childElementCount;
+            var fileContent = '';
+            for (var i = 0; i < childCount; i++) {
+//                var channel_number = $('.channel_number:eq(i)').html();
+                var channel_number = $('.channel_number').eq(i).html();
+                var platform_name = $('.platform_name').eq(i).html();
+                console.log(platform_name + ' ' + channel_number + ' ' + channel_number);
+                fileContent = fileContent.concat(platform_name + ' ' + channel_number + ' ' + channel_number + '\n');
+            }
+
+            var text = fileContent;
+            var MIME_TYPE = 'text/plain';
+            var bb = new Blob([text], {type: MIME_TYPE});
+            var a = document.createElement('a');
+            a.download = 'bld渠道';
+            a.href = window.URL.createObjectURL(bb);
+//            a.textContent = '123';
+            a.dataset.downloadurl = [MIME_TYPE, a.download, a.href].join(':');
+            console.log(a.dataset.downloadurl)
+            a.click();
+        }
+    </script>
+
+    <style type="text/css">
+        th {
+            white-space: nowrap;
+        }
+
+        td {
+            text-align: center;
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+
+        input[type=checkbox] {
+            -ms-transform: scale(1.5); /* IE */
+            -moz-transform: scale(1.5); /* FF */
+            -webkit-transform: scale(1.5); /* Safari and Chrome */
+            -o-transform: scale(1.5); /* Opera */
+        }
+    </style>
+</head>
+<body onload="queryChannel()">
+
+<h2>白领贷渠道</h2>
+<table id="tb1" border="1px" cellspacing="0px">
+    <thead>
+    <tr>
+        <th>编号</th>
+        <th>App名称</th>
+        <th>市场名称</th>
+        <th>渠道编号</th>
+        <th>渠道名称</th>
+        <th>选择</th>
+    </tr>
+    </thead>
+
+    <tbody id="tbody_row_data">
+    <tr>
+        <!--等待ajax返回数据-->
+    </tr>
+    </tbody>
+</table>
+
+<input type="button" value="删除" onclick="deleteChannel()"/>
+<input type="button" value="导出" onclick="exportChannel()"/>
+
+<form id="form_add">
+    App名称：<input name="app_name" type="text" placeholder="默认白领贷"/><br/>
+    市场名称：<input name="app_market_name" type="text" placeholder=""/><br/>
+    渠道编号：<input name="channel_number" type="text" placeholder=""/><br/>
+    渠道名称：<input name="p_id" type="text" placeholder="默认UMENG_CHANNEL"/><br/>
+    <input id="add_channel" type="button" onclick="addChannel()" value="添加渠道"/>
+</form>
+</body>
+</html>

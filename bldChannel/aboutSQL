@@ -1,0 +1,38 @@
+-- CREATE DATABASE maizi_mobile;
+-- USE maizi_mobile;
+-- SHOW TABLES;
+
+-- DROP TABLE statistics_platform;
+CREATE TABLE IF NOT EXISTS statistics_platform(
+     platform_id INT AUTO_INCREMENT NOT NULL,
+     platform_name VARCHAR(100) NOT NULL,
+     PRIMARY KEY(platform_id),
+     UNIQUE(platform_name)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- INSERT INTO statistics_platform VALUES(null,'UMENG_CHANNEL');
+
+-- DROP TABLE bld_channel;
+CREATE TABLE IF NOT EXISTS bld_channel(
+     channel_id INT AUTO_INCREMENT NOT NULL,
+     app_name VARCHAR(100) NOT NULL,
+     app_market_name VARCHAR(100) NOT NULL,
+     channel_number VARCHAR(100) NOT NULL,
+     p_id INT,
+     PRIMARY KEY(channel_id),
+     CONSTRAINT fk_platform_id FOREIGN KEY (p_id) REFERENCES statistics_platform(platform_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- INSERT INTO bld_channel VALUES(null,'名校贷白领版','应用宝','yyb1_1234',1);
+
+-- SELECT * FROM bld_channel c JOIN statistics_platform p on c.p_id=p.platform_id;
+-- SELECT * FROM bld_channel c,statistics_platform p WHERE c.p_id=p.platform_id;
+SELECT
+	c.channel_id,c.app_name,c.app_market_name,c.channel_number,p.platform_name
+FROM
+	bld_channel c
+LEFT JOIN
+	statistics_platform p on c.p_id=p.platform_id
+LIMIT 5;
+
+SELECT * FROM bld_channel;
+SELECT * FROM statistics_platform;
