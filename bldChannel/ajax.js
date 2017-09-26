@@ -44,7 +44,7 @@ function addChannel() {
             dataType: 'json',
             data: $('form#form_add').serialize(),
             success: function (data) {
-                alert(data.message);
+                console.log(data.message);
                 queryChannel();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -71,7 +71,7 @@ function deleteChannel() {
             dataType: 'json',
             data: {ids: `${electChannels}`},
             success: function (data) {
-                alert(data.message);
+                console.log(data.message);
                 queryChannel();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
