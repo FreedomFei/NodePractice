@@ -3,18 +3,27 @@
 let http = require('http'),
     express = require('express'),
     db = require('./db'),
-    async = require('async'),
+    serverinfo = require('./serverinfo'),
     bodyParser = require('body-parser');
 
 var urlEncoded = bodyParser.urlencoded({extended: false});
+let app = express();
+app.use(express.static('bldChannel'));
 
 console.log('server is started');
 
-let app = express();
-app.use(express.static('bldChannel'));
-let server = app.listen('3001', () => {
-    // console.log(server.address().address);
-    // console.log(server.address().port);
+//方法一、原生
+// var server = http.createServer();
+// server.listen(0);
+// server.on('listening', function() {
+//     var port = server.address().port;
+//     serverinfo.openUri(server.address().port);
+// })
+
+//方法二、express
+let server = app.listen(() => {
+    //listen没有指定端口号会自动分配端口号
+    serverinfo.openUri(server.address().port);
 });
 
 app.get('/', (request, response) => {
@@ -47,11 +56,3 @@ app.post('/deleteChannelByIds', urlEncoded, (request, response) => {
         response.end();
     });
 });
-
-
-// http.get(function (request, response) {
-//     console.log(url.parse(request.url).pathname);
-//     response.writeHeader(200, {"Content-Type": "text/plain;charset=utf-8"});
-//     response.write("hello");
-//     response.end();
-// }).listen(8888);
