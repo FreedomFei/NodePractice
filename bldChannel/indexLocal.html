@@ -5,7 +5,7 @@
     <title>HOME</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <script type="text/javascript">
-        var lines = '';
+        var lines = [];
 
         function loadChannelFile(input) {
             if (input.files && input.files.length > 0 && input.files[0].size > 0) {
@@ -28,7 +28,7 @@
 //                                    '<td>' + '-' + '</td>\n' +
 //                                    '<td class="channel_number">' + line[1] + '</td>\n' +
 //                                    '<td class="platform_name">' + line[0] + '</td>\n' +
-//                                    '<td>' + '<input name="input_elect" type="checkbox" value="' + index + '"/>' + '</td>\n' +
+//                                    '<td>' + '<input name="input_select" type="checkbox" value="' + index + '"/>' + '</td>\n' +
 //                                    '</tr>'
 //                                );
 //                            })
@@ -42,7 +42,7 @@
         }
 
         function deleteChannel() {
-            var channels = document.getElementsByName('input_elect');
+            var channels = document.getElementsByName('input_select');
             var channelLength = channels.length;
             var electChannels = new Array();
             for (var i = 0; i < channelLength; i++) {
@@ -52,8 +52,6 @@
             }
 
             electChannels.forEach(function (item) {
-                console.log(lines)
-                console.log(item);
                 lines.splice(item, 1)
             })
             refresh();
@@ -71,7 +69,7 @@
                     '<td>' + '-' + '</td>\n' +
                     '<td class="channel_number">' + line[1] + '</td>\n' +
                     '<td class="platform_name">' + line[0] + '</td>\n' +
-                    '<td>' + '<input name="input_elect" type="checkbox" value="' + index + '"/>' + '</td>\n' +
+                    '<td>' + '<input name="input_select" type="checkbox" value="' + index + '"/>' + '</td>\n' +
                     '</tr>'
                 );
             })
@@ -86,7 +84,7 @@
                 var channel_number = chileTd[3].innerHTML;
                 var platform_name = chileTd[4].innerHTML;
                 console.log(platform_name + ' ' + channel_number + ' ' + channel_number);
-                fileContent = fileContent.concat(platform_name + ' ' + channel_number + ' ' + channel_number + '\n');
+                fileContent = fileContent.concat(platform_name + ' ' + channel_number + ' ' + channel_number + '\r\n');
             })
 
 //            let childCount = document.getElementById('tbody_row_data').childElementCount;
@@ -109,6 +107,24 @@
             a.dataset.downloadurl = [MIME_TYPE, a.download, a.href].join(':');
             console.log(a.dataset.downloadurl)
             a.click();
+        }
+
+        function addChannel() {
+            var app_name = document.getElementById('app_name').value;
+            var app_market_name = document.getElementById('app_market_name').value;
+            var channel_number = document.getElementById('channel_number').value;
+            var p_id = document.getElementById('p_id').value;
+
+            if (channel_number === '' || p_id === '') {
+                alert('请输入渠道信息');
+                return;
+            }
+            lines.push('UMENG_CHANNEL ' + channel_number + ' ' + p_id + ' ' + '\r\n');
+            refresh();
+            var adds = document.getElementsByName('add');
+            adds.forEach(function (item) {
+                item.value = '';
+            });
         }
     </script>
 
@@ -160,10 +176,10 @@
 <input type="button" value="导出" onclick="exportChannel()"/>
 
 <form id="form_add">
-    App名称：<input name="app_name" type="text" placeholder="默认白领贷"/><br/>
-    市场名称：<input name="app_market_name" type="text" placeholder=""/><br/>
-    渠道编号：<input name="channel_number" type="text" placeholder=""/><br/>
-    渠道名称：<input name="p_id" type="text" placeholder="默认UMENG_CHANNEL"/><br/>
+    App名称：<input name="add" id="app_name" type="text" placeholder="默认白领贷"/><br/>
+    市场名称：<input name="add" id="app_market_name" type="text" placeholder=""/><br/>
+    渠道编号：<input name="add" id="channel_number" type="text" placeholder=""/><br/>
+    渠道名称：<input name="add" id="p_id" type="text" placeholder="默认UMENG_CHANNEL"/><br/>
     <input id="add_channel" type="button" onclick="addChannel()" value="添加渠道"/>
 </form>
 </body>

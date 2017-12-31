@@ -27,7 +27,7 @@ function queryChannel() {
                     '<td>' + result.app_market_name + '</td>\n' +
                     '<td class="channel_number">' + result.channel_number + '</td>\n' +
                     '<td class="platform_name">' + result.platform_name + '</td>\n' +
-                    '<td>' + '<input name="input_elect" type="checkbox" value="' + result.channel_id + '"/>' + '</td>\n' +
+                    '<td>' + '<input name="input_select" type="checkbox" value="' + result.channel_id + '"/>' + '</td>\n' +
                     '</tr>'
                 );
             });
@@ -55,7 +55,7 @@ function addChannel() {
 }
 
 function deleteChannel() {
-    var channels = document.getElementsByName('input_elect');
+    var channels = document.getElementsByName('input_select');
     var channelLength = channels.length;
     var electChannels = new Array();
     for (var i = 0; i < channelLength; i++) {
