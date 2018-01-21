@@ -6,6 +6,9 @@ var querystring = require('querystring'),
 //mime = require('./mime').types;
     mime = require('mime');
 
+fs.move = require('fs-extra').move;
+fs.moveSync = require('fs-extra').moveSync;
+
 var fileDir = "./uploadFile/upload/";
 
 function start(requst, response) {
@@ -63,6 +66,7 @@ function upload(request, response) {
 
                 //new Date()是日期有问题,+new Date()是时间戳
                 fs.renameSync(files.upload.path, fileDir + basename + +new Date() + extname);
+                fs.moveSync(files.upload.path, fileDir + basename + +new Date() + extname);
                 console.log("log/type:" + files.upload.type)
                 show(request, response);
             } else {
