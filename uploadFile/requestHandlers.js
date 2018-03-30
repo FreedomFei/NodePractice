@@ -65,7 +65,7 @@ function upload(request, response) {
                 var basename = path.basename(fileName, extname);
 
                 //new Date()是日期有问题,+new Date()是时间戳
-                fs.renameSync(files.upload.path, fileDir + basename + +new Date() + extname);
+                // fs.renameSync(files.upload.path, fileDir + basename + +new Date() + extname);
                 fs.moveSync(files.upload.path, fileDir + basename + +new Date() + extname);
                 console.log("log/type:" + files.upload.type)
                 show(request, response);

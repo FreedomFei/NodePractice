@@ -8,7 +8,7 @@ let http = require('http'),
 
 var urlEncoded = bodyParser.urlencoded({extended: false});
 let app = express();
-app.use(express.static('bldChannel'));
+app.use(express.static('bldChannel'));//利用 Express 托管静态文件
 
 console.log('server is started');
 

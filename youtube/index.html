@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Youtube Download</title>
+
+    <script type="text/javascript" src="../common/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        function download() {
+            var youtubeUrl = document.getElementsByName('youtube_url').values();
+
+            jQuery(document).ready(function () {
+                $.ajax({
+                    url: 'http://localhost:3002/download',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {ids: `${youtubeUrl}`},//key=input的name
+                    success: function (data) {
+                        console.log(data.message);
+                        queryChannel();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    }
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+
+<form action="/download" method="post">
+    <input name="youtube_url" type="text">
+    <button type="submit">Download</button>
+    <!--<button type="button" onclick="download()">Download</button>-->
+</form>
+
+</body>
+</html>
